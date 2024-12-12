@@ -11,3 +11,12 @@ def tamanho_lista(param):
             print(pedaco)
 
 tamanho_lista(lista)
+
+
+app = Flask(__name__)
+
+def init_db():
+    conn = sqlite3.connect(':memory:')
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT)")
+    return conn
