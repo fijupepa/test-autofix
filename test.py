@@ -20,3 +20,9 @@ def init_db():
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT)")
     return conn
+
+@app.route('/user')
+def get_user():
+    user_id = request.args.get('id')
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT name FROM user WHERE id = {user_id}")
