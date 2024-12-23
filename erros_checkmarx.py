@@ -22,7 +22,7 @@ def login():
     username = request.form.get("username")
     password = request.form.get("password")
     # Consulta SQL vulnerável a injeção
-    query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+    query = f"SELECT * FROM users WHERE username = '{username}' AND password = '<password>'"
     print("Executing query:", query)
     # Simulação de execução (não use em produção)
     return "Query executed!"
