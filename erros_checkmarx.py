@@ -40,8 +40,14 @@ def login():
 @app.route("/read", methods=["POST"])
 def read_file():
     filename = request.form.get("filename")
-    # Permite acesso a arquivos arbitrários
-    with open(filename, "r") as file:
+    # Define a safe root directory
+    safe_root = "/safe/directory"
+    # Normalize the path and check if it is within the safe root directory
+    fullpath = os.path.normpath(os.path.join(safe_root, filename))
+    if not fullpath.startswith(safe_root):
+        return "Access denied: Invalid file path", 400
+    # Open the file if the path is valid
+    with open(fullpath, "r") as file:
         data = file.read()
     return data
 
