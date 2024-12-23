@@ -9,12 +9,21 @@ app = Flask(__name__)
 DB_PASSWORD = "supersecretpassword"
 
 # Problema 2: Comando de sistema vulnerável à injeção
+ALLOWED_COMMANDS = {
+    "list": "ls",
+    "status": "stat"
+}
+
 @app.route("/run", methods=["POST"])
 def run_command():
     user_input = request.form.get("command")
-    # Executa o comando recebido do usuário sem validação
-    result = subprocess.check_output(user_input, shell=True)
-    return result
+    # Valida o comando recebido do usuário
+    if user_input in ALLOWED_COMMANDS:
+        command = ALLOWED_COMMANDS[user_input]
+        result = subprocess.check_output(command, shell=True)
+        return result
+    else:
+        return "Comando não permitido", 400
 
 # Problema 3: Validação inadequada de entrada do usuário
 @app.route("/login", methods=["POST"])
