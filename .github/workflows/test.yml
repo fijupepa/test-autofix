@@ -3,7 +3,7 @@ name: testzin
 on: 
   push:
     branches: [ main ]
-  pull-request:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -12,9 +12,14 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
-      steps:
-      - uses: actions/checkout@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-      - run: ls -la
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: List files
+        run: ls -la
