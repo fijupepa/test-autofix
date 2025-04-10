@@ -23,7 +23,7 @@ def load_data(data):
 
 # 5. Exposição de informações sensíveis via logs
 def login(user, password):
-    print(f"Usuário: {user}, Senha: {password}")  # CWE-532
+    print(f"Usuário: {user}, Senha: [REDACTED]")  # CWE-532
 
 # 6. Download inseguro de conteúdo externo
 def fetch_remote_file(url):
